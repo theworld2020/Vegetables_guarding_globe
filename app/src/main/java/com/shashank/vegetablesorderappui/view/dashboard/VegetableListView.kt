@@ -1,5 +1,7 @@
 package com.shashank.vegetablesorderappui.view.dashboard
 
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -16,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -29,7 +32,7 @@ import com.shashank.vegetablesorderappui.theme.*
 @ExperimentalMaterialApi
 @Composable
 fun VegetableListView(actions: MainActions) {
-
+    val context = LocalContext.current
     var text by remember { mutableStateOf("") }
     val vegetablesItemList = listOf(
         Vegetable(R.drawable.invincible, "Invincible", "", seashell),
@@ -115,16 +118,24 @@ fun VegetableListView(actions: MainActions) {
                             shape = RoundedCornerShape(16.dp),
                             backgroundColor = item.cardBg,
                             onClick = {
-                                when (item.name) {
-                                    "Invincible" -> actions.gotoOnDashboard()
-                                    "Tomato" -> actions.gotoOnBoarding()
-                                    // Add more cases for other vegetable types if needed
-                                    else -> {
-                                        // Default action or error handling
-                                        actions.gotoVegetableDetail()
+                                    val veg = when (item.name) {
+                                        "Invincible" -> "Invincible"
+                                        "Atom Eve" -> "Atom Eve"
+                                        // Add more cases for other vegetable types if needed
+                                        else -> "Else"
                                     }
-                                }
+                                Log.d("ItemClicked", "Vegetable Name: $veg")
+                                    actions.gotoVegetableDetail(veg)
+
+                               /* val vegetableId =  when (item.name) {
+                                    "Invincible" ->actions.gotoVegetableDetail("Invincible")
+                                    "Tomato" -> actions.gotoVegetableDetail("Tomato")
+                                    // Add more cases for other vegetable types if needed
+                                    else -> actions.gotoVegetableDetail("Else")
+                                        // Default action or error handling
+                                }*/
                                // actions.gotoVegetableDetail()
+                              //      Toast.makeText(context, "Vegetable ID: $vegetableId", Toast.LENGTH_SHORT).show()
                             }
                         ) {
                             Column(

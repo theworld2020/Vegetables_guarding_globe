@@ -1,5 +1,6 @@
 package com.shashank.vegetablesorderappui.navigation
 
+import android.util.Log
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -17,6 +18,7 @@ import com.shashank.vegetablesorderappui.view.welcome.SplashScreenView
 @Composable
 fun NavGraph() {
     val navController = rememberNavController()
+   val veg: String = ""
     val actions = remember(navController) { MainActions(navController) }
 
     NavHost(navController, startDestination = Screen.Splash.route) {
@@ -38,8 +40,11 @@ fun NavGraph() {
 
         //Vegetable Detail
         composable(Screen.VegetableDetail.route) {
-            VegetableDetail(actions)
+           VegetableDetail(actions, veg)
         }
+
+// Define the composable function for the VegetableDetail screen
+
         //Vegetable List
 
         composable(Screen.VegetableListView.route) {
@@ -48,9 +53,8 @@ fun NavGraph() {
     }
 }
 
+
 class MainActions(private val navController: NavHostController) {
-
-
 
     val popBackStack: () -> Unit = {
         navController.popBackStack()
@@ -70,7 +74,7 @@ class MainActions(private val navController: NavHostController) {
         navController.navigate(Screen.Dashboard.route)
     }
 
-    val gotoVegetableDetail: () -> Unit = {
+    val gotoVegetableDetail: (veg: String) -> Unit = {
         navController.navigate(Screen.VegetableDetail.route)
     }
 

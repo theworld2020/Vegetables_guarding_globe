@@ -1,5 +1,8 @@
 package com.shashank.vegetablesorderappui.view.dashboard
 
+import android.content.Context
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -11,13 +14,13 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -27,9 +30,18 @@ import com.shashank.vegetablesorderappui.R
 import com.shashank.vegetablesorderappui.navigation.MainActions
 import com.shashank.vegetablesorderappui.theme.*
 
-@Composable
-fun VegetableDetail(actions: MainActions) {
 
+@Composable
+fun VegetableDetail(actions: MainActions, veg: String) {
+    Log.d("VegetableDetail", "Received Vegetable Name: $veg")
+    val context = LocalContext.current
+    Toast.makeText(context, "Vegetable Name: $veg", Toast.LENGTH_SHORT).show()
+
+
+/*fun VegetableDetail(actions: MainActions, vegetableName: String) {
+    val context = LocalContext.current
+    Log.d("VegetableDetail", "Received Vegetable Name: $vegetableName")
+    Toast.makeText(context, "Vegetable ID: $vegetableName", Toast.LENGTH_SHORT).show()*/
     Column(
         modifier = Modifier
             .fillMaxSize()
